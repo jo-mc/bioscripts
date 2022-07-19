@@ -98,6 +98,7 @@ function:
 notes:
  - outputs pdf, change 'tofile' parameter in R code to output to panel 
  - panel output may not display, get margins too large error. 
+ - NEEDS more work and Refinement! (scaling plots to a nice size, maybe redo with ggplot)
 ```
 ![sample plot](hist.png)
 
