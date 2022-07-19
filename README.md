@@ -99,7 +99,7 @@ notes:
  - outputs pdf, change 'tofile' parameter in R code to output to panel 
  - panel output may not display, get margins too large error. 
 ```
-![sample plot](https://github.com/jo-mc/bioscripts/hist.png)
+![sample plot](hist.png)
 
 
 
