@@ -2,6 +2,7 @@
 
 BEGIN {
     gap = 5;  # distance from index to count (allows 1-10000 before no gap)
+    if (s) {slant=1} else {slant=0}    
 }
 
 {
@@ -35,7 +36,18 @@ for (i in v) {
     } 
 } 
 for (i=1;i<= vmax;i++)  {
-    for (j in v) printf("|%s",v[j][i]);   # for condensed size use  "printf(".%s.",v[j][i])"
+
+    for (j in v) {
+	if (slant) {seP="\\"} else {seP = "|"}
+	 if ((j > 1) && (i < gap)) {
+		if ( (v[j][i] == v[j-1][i])  || (v[j][i]  == (v[j-1][i])+1) )
+		 {if (slant) {seP="\\"} else {seP = "|"}}
+		else
+		 seP="~"
+	  }
+	  printf("%s%s",seP,v[j][i]);   # for condensed size use  "printf(".%s.",v[j][i])"
+    }
     print;
+    if (slant) { for (k=0; k<=(i-1); k++) printf(" ") }
 }
 }
