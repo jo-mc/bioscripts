@@ -13,6 +13,14 @@ function:
 notes:
  - use for dotplot etc... 
  - outputs a fasta format to stdout.
+ ```
+ ###### Standard Bioinformatics tools to do this.
+ ```
+ samtools:
+    samtools faidx chm13v2.fa chr1:20-30
+ bedtools:
+    bedtools getfasta -fi chm13v2.fa -bed regions.bed -fo results.fasta
+ (http://genomespot.blogspot.com/2015/03/extracting-specific-sequences-from-big.html)
 ```
 ##
 ### stat_fas.sh
