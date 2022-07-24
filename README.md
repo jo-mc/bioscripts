@@ -117,7 +117,15 @@ usage:
   awk -f hist.awk hist.txt 
   OR: awk -v s=1 -f hist.awk hist.txt  (produce slanted output)
 function:
- quickly text plot histogram data from stat_Fas data 
+ quickly text plot histogram data from stat_Fas data :
+        1       512
+        2       1763
+        3       7730
+        4       13962
+        5       16971
+        6       17580
+        7       18927
+        8       19036
 notes:
  - turns long stream of data into compact form across terminal screen
  - places a "~" indicatign non continuous data or every tenth value.
