@@ -1,5 +1,9 @@
 #! /bin/awk -f
 
+#/ Copyright ©2022 J McConnell  . All rights reserved.
+#// Use of this source code is governed by a BSD-style
+#// license that can be found in the LICENSE.txt file.
+
 BEGIN {
     gap = 5;  # distance from index to count (allows 1-10000 before no gap)
     if (s==1) {slant=1} else {slant=0}
