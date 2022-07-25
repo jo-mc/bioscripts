@@ -3,51 +3,77 @@
 BEGIN {
     gap = 5;  # distance from index to count (allows 1-10000 before no gap)
     if (s) {slant=1} else {slant=0}    
+    xindex = 0;
 }
 
 {
-gsub(/[ ]+/," ",$0);
-n=split($0,arr,""); 
-j=0; 
-for (i = 1; i <= n; i++) { 
-    if (arr[i] =="\t" || arr[i] ==" ") { 
-        for(k=i;k<=j+gap-i;k++) {
-            v[NR][k]=" ";
-        } 
-        j=j+gap-i; 
-    } 
-    else { 
-        j=j+1; 
-        v[NR][j] = arr[i];
-    }
-} 
-} 
-END {
-for (i = 1; i < NR; i++) {
-    sz[i] = length(v[i]); 
-    if (length(v[i])>vmax) vmax=length(v[i]) 
-}; 
-
-for (i in v) { 
-    if (length(v[i]) < vmax) { 
-        for(k=length(v[i])+1;k<=vmax;k++) {
-            v[i][k]=" ";
-        }
-    } 
-} 
-for (i=1;i<= vmax;i++)  {
-
-    for (j in v) {
-	if (slant) {seP="\\"} else {seP = "|"}
-	 if ((j > 1) && (i < gap)) {
-		if ( (v[j][i] == v[j-1][i])  || (v[j][i]  == (v[j-1][i])+1) )
-		 {if (slant) {seP="\\"} else {seP = "|"}}
-		else
-		 seP="~"
-	  }
-	  printf("%s%s",seP,v[j][i]);   # for condensed size use  "printf(".%s.",v[j][i])"
-    }
-    print;
-    if (slant) { for (k=0; k<=(i-1); k++) printf(" ") }
+if (($0 ~ /^#/) || !($0 ~ /^[0-9]/)) {startl = startl + 1; header = (header $0) "\n";  next;}
+aref[NR] = $1
+count = $2
+if (count > cmax) cmax = count;
+acount[NR] = count
+elements = elements + 1
+# print $0
 }
+
+END {
+printf("%s\n",header);
+#slant = 1
+la = length(aref[NR])
+spc = " ";
+# print "length : ", la
+for (j=1;j<=la;j++) {
+        for (i=1;i<=elements;i++ ) {
+                n = substr(aref[i+startl],j,1)
+                if (n) printf("%s",n); else printf(" ");
+                if (slant) printf("\\");
+        }
+        printf("\n");
+        if (slant) {for (k1=1;k1<=j;k1++) {printf(" ")}; }
+}
+
+# printf("\n")
+###########################      gap indicator:
+#if (slant) { for (k1=1;k1<=j;k1++) {printf(" ")};}
+printf(" ");
+if (slant) printf("\\");
+for (i=2;i<=elements;i++ ) {
+     if (aref[i+startl] <= (aref[i+startl-1] + 1)  ) {printf(".")} else {printf("~")} 
+     if (slant) printf("\\");
+}
+if (slant) k1= k1 +1;
+printf("\n")
+###########################
+
+lc = length(cmax)
+if (slant) { for (k1=1;k1<=j;k1++) {printf(" ")};}
+for (j=1;j<=lc;j++) {
+        for (i=1;i<=elements;i++  ) {
+                n = substr(acount[i+startl],j,1)
+                if (n) printf("%s",n); else printf(" ");
+                if (slant) printf("\\");
+        }
+        printf("\n");
+        if (slant) {for (k2=1;k2<=j+k1-1;k2++) {printf(" ")}; }
+}
+
+#for (i=1;i<=elements;i++  ) {
+#     percent = int(10*acount[i+startl]/cmax);
+#     printf(" val: %s, percent %s, int %s\n",acount[i+start],100*acount[i+start]/cmax,percent);
+#}
+
+printf("\n");
+if (slant) {for (k2=1;k2<=j+k1-1;k2++) {printf(" ")};}
+
+for (j=1;j<=10;j++){
+  for (i=1;i<=elements;i++  ) {
+        percent = int(10*acount[i+startl]/cmax);
+        if (percent >= j) printf("*"); else printf(" ");
+        if (slant) printf("\\");
+  }
+  printf("\n");
+  if (slant) {for (k3=1;k3<=j+k2-1;k3++) {printf(" ")};}
+}
+
+# print "index max ", $1, " count max ", cmax, " elements: ", elements
 }
