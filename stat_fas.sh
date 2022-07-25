@@ -8,6 +8,10 @@
 #  ouputs the fasta or fastq.gz statistics file with .gz.dat extension
 #
 
+#/ Copyright ©2022 J McConnell  . All rights reserved.
+#// Use of this source code is governed by a BSD-style
+#// license that can be found in the LICENSE.txt file.
+
 for file in *gz   
   do
     echo $file
