@@ -111,7 +111,7 @@ notes:
 ![sample plot](hist.png)
 
 ##
-### text histogram, numeric and indicative with '*' plot.
+### hist.awk :: text histogram, numeric and indicative with '*' plot.
 ```
 usage:
   awk -f hist.awk hist.txt 
