@@ -14,6 +14,10 @@
 
 for file in *gz   
   do
+    if [ -f "$file".stat.dat ]; then
+      echo "$file output exists. looking for next gz"
+    else
+      echo "$file output does not exist, processing..."
     echo $file
     gunzip -c $file | \
     awk '  {if (seq==1) {print length($0); seq=0 } \
@@ -45,5 +49,6 @@ for file in *gz
           printf(" ==============================\t\nHistogram, units =\t%s\n",adiv); \
       for (v in arr) printf("%s\t%s\n",v,arr[v]); \
 }' genstat.dat  > $file.stat.dat
+fi
 done
 
