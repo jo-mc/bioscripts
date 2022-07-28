@@ -37,7 +37,7 @@ if (inReg ==1) {
     b=c+l; 
     if (nR==1) # looking for start
     {
-        if(s>=a) {
+        if((s>=a) && (s<=b)) {
             nR=2; 
             st=s-a+1;
             en=l-st+1;  # could be updated in nR=2
