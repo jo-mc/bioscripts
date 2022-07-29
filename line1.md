@@ -66,7 +66,7 @@ sort -n -r -k 2 | \
 awk '{ header = header (substr($1,2)) "," $2 " "; fasta = fasta $3; } \
 END {printf(">ALL-L1 large to small\n%s\n",fasta); printf("%s",header) > "headerallL1.txt" }' > allL1.fasta
 ```
-headerallL1.txt:
+headerallL1.txt:  (view header info line by line:   awk '{ for (i=1;i<=NF;i++) print $i }' headerallL1.txt | less )
 ```
 L1PREC2,8145 L1P_MA2,7678 L1PB2c,6582 L1PREC1,6460 L1HS,6064 L1,5403 L1M4B,5024 L1M2_5,4191 L1PA16_5,4083 L1M2C_5,4038 L1M1_5,3834 L1MDA_5,3320 L1ME_ORF2,3285 L1M2B_5,3252 L1PBA_5,3104 L1PA12_5,3072 L1MC4,2761 L1M3A_5,2728 L1MCA_5,2647 L1P4a_5end,2596 L1MC4_5end,2555 L1MEC_5,2527 L1M6_5end,2515 L1MB3_5,2500 L1MC3,2487 L1PA13_5,2278 L1M7_5end,2237 L1M2A_5,2233 L1MEf_5end,2217 L1MC5,2174 L1M3DE_5,2137 L1MA9_5,2113 L1MEg_5end,210
 ```
