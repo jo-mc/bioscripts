@@ -19,7 +19,9 @@ aaaaggctgcyraakcttctyctccyycagaagcttmtccttswcctk.........
 ```
 
 awk '{if(NR%2==0) printf("%s : ",$0); else printf("%s : %s\n",length($0),($0)) }' humrep.refPerLine.txt | sort | less -S
+
 refine:
+
 awk 'BEGIN {aseq=0}  {if (aseq ==1) printf("%s : %s\n",length($0),($0));  if (index($0,">L1") > 0) {printf("%s : ",$0); aseq=1;} else {aseq= 0};  }' humrep.refPerLine.txt | sort -n -r  -k 3 | less -S
 
 ```bash
@@ -81,3 +83,32 @@ java -cp /home/a1779913/tools/gepard/Gepard-1.40.jar org.gepard.client.cmdline.C
 ```
 output:
 ![1kv1k](https://user-images.githubusercontent.com/38674063/181656133-777a3b7e-34d7-49c6-ae76-281f3fee6592.png)
+
+================================================================
+now for DFAM L1
+
+get L1 data into per line format:
+```bash
+awk -v name="L1" -f dfam.awk Dfam.embl | awk '{ if (index($0,"L1") > 0 ) {if (NR>1) {print ""} printf(">%s\n",$0)} else printf("%s",$0);  }' | less -S
+```
+gets:
+```bash
+awk -v name="L1" -f dfam.awk Dfam.embl | awk '{ if (index($0,"L1") > 0 ) {if (NR>1) {print ""} printf(">%s\n",$0)} else printf("%s",$0);  }' | awk 'BEGIN {aseq=0; asep="gggaggaggagccaagatggccgaataggaacagctccggtctacagctcccagcgtgagcgacgcagaagacgggtgatttctgcatttccatctgaggtaccgggttcatctcactagggagtgccagacagtgggcgca"; }  \
+> {if (aseq ==1) printf("%s %s%s\n",length($0),($0),asep);  \
+> if (index($0,">L1") > 0) {printf("%s ",$0); aseq=1;} else {aseq= 0};  }'  | \
+> sort -n -r -k 2 | \
+> awk '{ header = header (substr($1,2)) "," $2 " "; fasta = fasta $3; } \
+> END {printf(">ALL-L1 large to small\n%s\n",fasta); printf("%s",header) > "headerallL1DFAM.txt" }' > allL1DFAM.fasta
+```
+
+
+view header (L1 list)
+```bash
+ awk '{ for (i=1;i<=NF;i++) print $i }' headerallL1DFAM.txt | less
+
+```
+dotpolt dfam vs repbase - bit of a mess...
+
+Now for alu: (not quite right? first line is printed?) 
+
+~/Documents/repbase_human$ awk '{ if (index($0,"Alu") > 0 ) { {if (NR>1) {print ""};} printf("%s\n",$0); } else printf("%s",$0);}'  humsub.ref.txt | less -S
