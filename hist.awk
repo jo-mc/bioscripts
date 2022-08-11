@@ -4,6 +4,12 @@
 #// Use of this source code is governed by a BSD-style
 #// license that can be found in the LICENSE.txt file.
 
+# usage:
+#  awk -f hist.awk hist.txt 
+#  OR: awk -v s=1 -f hist.awk hist.txt  (produce slanted output)
+#  OR: awk -v s=2 -f hist.awk hist.txt  (produce "|" delimited output)
+#  option: -v x=1 will plot histogram with 2nd highest vlaue as 100% (where highest is much larger tham rest allows histogram resolution of remaining data, highest value will be indicated with "#")
+
 BEGIN {
     gap = 5;  # distance from index to count (allows 1-10000 before no gap)
     if (s==1) {slant=1} else {slant=0}
