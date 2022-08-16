@@ -3,7 +3,7 @@
 #
 #  Create a text histogram in the terminal from stat_fas.sh output.
 #
-# will plot any ?? debug text data with 2 columns of numeric data (ignoring header lines begining with non numeric) 
+#  also for any 2 columns of numeric data ? may be edge cases not working? (ignoring header lines begining with non numeric) 
 #
 
 #/ Copyright ©2022 J McConnell  . All rights reserved.
@@ -27,7 +27,8 @@ print slant;
 }
 
 {
-if (($0 ~ /^#/) || !($0 ~ /^[0-9]/)) {startl = startl + 1; header = (header $0) "\n";  next;}
+if (($1 ~ /^#/) || !($1 ~ /^[0-9]/)) {startl = startl + 1; header = (header $0) "\n";  next;}
+# use $1 will trim whitespace in case $0 " 1   100" 
 aref[NR] = $1
 count = $2
 if (count > cmax) cmax = count; else if (count >c2max) c2max=count;  # get second highest count.
