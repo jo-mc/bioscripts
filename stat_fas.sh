@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# Get statistics of sequence lengths for fasta or fastq files.
+#
 # NOTE assumes *.gz files in folder are fastq.gz or fasta.gz
 # process all files in folder with*.gz, change to *.fasta  or *.fastq as required. OR add a command line parameter to specify
 #
-# run script iff fodler with sequence files to process $ bash stat_fas.sh
+# run script if folder with sequence files to process $ bash stat_fas.sh
 #  creates a temporary file genstat.dat to hold intermediate data
 #  ouputs the fasta or fastq.gz statistics file with .gz.dat extension
 #
@@ -22,6 +24,7 @@ for file in *gz
     gunzip -c $file | \
     awk '  {if (seq==1) {print length($0); seq=0 } \
            else {ftype = substr($0,1,1); \
+           # if read a ID/Tag line then next line will be the read sequence ( set seq = 1) 
            if ((ftype== ">" ) || (ftype== "@")) {seq = 1} } }' \
     | sort -n > genstat.dat; \
     # count how many base pairs and max read length, put into bash variable numBP_gs
