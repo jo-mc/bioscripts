@@ -1,5 +1,11 @@
 #! /bin/awk -f
 
+#
+#  Create a text histogram in the terminal from stat_fas.sh output.
+#
+# will plot any ?? debug text data with 2 columns of numeric data (ignoring header lines begining with non numeric) 
+#
+
 #/ Copyright ©2022 J McConnell  . All rights reserved.
 #// Use of this source code is governed by a BSD-style
 #// license that can be found in the LICENSE.txt file.
@@ -8,7 +14,7 @@
 #  awk -f hist.awk hist.txt 
 #  OR: awk -v s=1 -f hist.awk hist.txt  (produce slanted output)
 #  OR: awk -v s=2 -f hist.awk hist.txt  (produce "|" delimited output)
-#  option: -v x=1 will plot histogram with 2nd highest vlaue as 100% (where highest is much larger tham rest allows histogram resolution of remaining data, highest value will be indicated with "#")
+#  option: -v x=1 will plot histogram with 2nd highest value as 100% (where highest is much larger tham rest allows histogram resolution of remaining data, highest value will be indicated with "#")
 
 BEGIN {
     gap = 5;  # distance from index to count (allows 1-10000 before no gap)
