@@ -2,6 +2,9 @@
 not quite oneliners but useful and reusable 
 
 
+
+[SAM length histogram](#sam_length_histo)
+
 ##
 ### extractfasta
 ```
@@ -238,3 +241,33 @@ with -v x=1 option:
 index max  51  count max  187899  count c2max (2nd highest) :  163507  elements:  47
 
 ```
+<a name="sam_length_histo"></a>
+### sam_length_Hist.sh
+Takes a sam bam file as input and gets lengths of reads, stratifies them and give a "count - value" histogram output.
+```ruby
+Stratification
+ 0 -> 0
+ 1..9 -> 1..9
+ 10-19 -> 10
+ 30-39 -> 30
+ 100-199 -> 100
+ 400-499 -> 400
+ 1000-1999 -> 1000
+ 10000-19999 -> 10000
+ 20000-29999 -> 20000
+ etc..
+ 
+ Sample output:  (count, value)  [bash sam_length_Hist.sh  MchrSample.sam | less]
+      1 200
+      3 300
+      2 400
+      5 800
+      4 900
+     12 1000
+      7 2000
+      3 7000
+      5 8000
+      7 9000
+    139 10000
+
+ ```
