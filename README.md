@@ -270,4 +270,29 @@ Stratification
       7 9000
     139 10000
 
+or pipe it to hist.awk: 
+ bash ../Scripts/sam_length_hist.sh  MchrSample.sam | awk -f ../Scripts/hist.awk
+ 
+234567891234567891
+000000000000000000
+000000000000000000
+        0000000000
+                 0
+ ~~~~~~~~~~~~~~~~~
+132624541768933571
+        2        3
+                 9
+
+                 *
+                 *
+                 *
+                 *
+                 *
+                 *
+                 *
+                 *
+                 *
+                 *
+
+
  ```
