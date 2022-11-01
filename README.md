@@ -5,6 +5,8 @@ not quite oneliners but useful and reusable
 
 [SAM length histogram](#sam_length_histo)
 
+[interleave fastq](#fastq_interleave)
+
 ##
 ### extractfasta
 ```
@@ -296,3 +298,6 @@ or pipe it to hist.awk:
 
 
  ```
+ <a name="fastq_interleave"></a>
+### interleave.sh
+Takes two fastq paired illumina files and interleaves reads. Does not check ID's just interleaves as order in each file - need to check (esp if you have QA'd reads). Need to edit script for filenames, pretty basic script. 
