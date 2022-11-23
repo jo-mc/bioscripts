@@ -309,8 +309,18 @@ Takes two fastq paired illumina files and interleaves reads. Does not check ID's
 
 <a name="similarity_distance"></a>
 ### sim.awk Similarity for aligned reads vs reference from BAM file
+```
+Generate similarity/distance scores for bam files (with MD tag)
+ computes Jukes-Cantor Distance  (using affine gap penalty)
+   gap = 1 + 0.2*(gap-1)   ie gap of 1 = 1 gap of 2 = 1.2,  gap can be insert or delete. (affine gradient = 0.2)
+   similarity:  S = matches / (positions_scored + gaps * gap_penalty)
+
+  positions scored = length of aligned read LESS any soft or hard clips  (no penalty for clips has been added)
+  matches = mismatches between aligned part of read (ie cigar M ) and reference. (or X and = if in cigar)
+::
+```
 ``` ruby
- samtools view chr21.bam | awk -f sim.awk | less
+samtools view chr21.bam | awk -f sim.awk | less
  
 SRR3189742.134717430 99 chr21 66  len:210 readlen:250 nm:20 similarity:0.905213 distance:0.101334 cig:84M1D126M40S MD:Z:84^T28C3C2T2C9A3C3C1C3C2T9C7T4C3C2T7A0C5C8T6
 SRR3189742.116419910 65 chr21 72  len:78 readlen:250 nm:1 similarity:0.987179 distance:0.0129314 cig:78M172S MD:Z:58C19
