@@ -1,7 +1,7 @@
 #!/bin/awk -f
 
 # generate similarity/distance scores for bam files (with MD tag)
-# Jukes-Cantor Distance
+# Jukes-Cantor Distance   https://bip.weizmann.ac.il/education/materials/gcg/distances.html
 # gap = 1 + 0.2*(gap-1)   ie gap of 1 = 1 gap of 2 = 1.2,  gap can be insert or delete.
 # similarity:  S = matches / (positions_scored + gaps * gap_penalty)
 
