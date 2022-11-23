@@ -7,6 +7,8 @@ not quite oneliners but useful and reusable
 
 [interleave fastq](#fastq_interleave)
 
+[similarity caclulation for alignment reads](#similarity_distance)
+
 ##
 ### extractfasta
 ```
@@ -301,3 +303,25 @@ or pipe it to hist.awk:
  <a name="fastq_interleave"></a>
 ### interleave.sh
 Takes two fastq paired illumina files and interleaves reads. Does not check ID's just interleaves as order in each file - need to check (esp if you have QA'd reads). Need to edit script for filenames, pretty basic script. 
+```
+.
+```
+
+<a name="similarity_distance"></a>
+### sim.awk Similarity for aligned reads vs reference from BAM file
+``` ruby
+ samtools view chr21.bam | awk -f sim.awk | less
+ 
+SRR3189742.134717430 99 chr21 66  len:210 readlen:250 nm:20 similarity:0.905213 distance:0.101334 cig:84M1D126M40S MD:Z:84^T28C3C2T2C9A3C3C1C3C2T9C7T4C3C2T7A0C5C8T6
+SRR3189742.116419910 65 chr21 72  len:78 readlen:250 nm:1 similarity:0.987179 distance:0.0129314 cig:78M172S MD:Z:58C19
+SRR3189742.202126486 99 chr21 118  len:93 readlen:250 nm:8 similarity:0.904255 distance:0.102432 cig:47M1I45M157S MD:Z:26A11T1A11A9T5T17T5
+SRR1997411.122339719 163 chr21 140  len:153 readlen:250 nm:0 similarity:1 distance:0 cig:153M97S MD:Z:153
+SRR3189742.134717430 147 chr21 145  len:139 readlen:250 nm:8 similarity:0.942446 distance:0.0598822 cig:111S139M MD:Z:6A12A5A5A4A0A11A11A77
+SRR3189742.34407325 83 chr21 145  len:206 readlen:250 nm:6 similarity:0.970874 distance:0.0297069 cig:44S206M MD:Z:11T6A1C4A35A5A138
+SRR3189741.90033716 83 chr21 145  len:248 readlen:250 nm:0 similarity:1 distance:0 cig:2S248M MD:Z:248
+SRR3189741.199779592 121 chr21 145  len:200 readlen:250 nm:0 similarity:1 distance:0 cig:50S200M MD:Z:200
+
+UNMAPPED READ OUTPUT:
+SRR3189741.199779592 181 chr21 145  len:200 readlen:250 nm:- similarity:- distance:- cig:* MD:Z:-
+
+```
