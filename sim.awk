@@ -14,6 +14,8 @@ printf("%s %s %s %s  ",$1,$2,$3,$4,$5)
 
 cigA = $6;
 
+if (cigA  != "*")  {
+
 regex =  "[[:upper:]=]+";
 n=split(cigA, arr, regex);   # arr will be array of numbers from CIGAR [72,12,1,37,1...]   # hmm need to check this? samtools should do some checking of sam file integrity? 
 regex =  "[[:digit:]]+";
@@ -61,7 +63,13 @@ distance =  -0.75* log(1-(1-similarity)/0.75);
 # print  "distance: " distance
 
 # affineP = sprintf(" gaps (d/i): %s/%s affine penalties (d/i): %s/%s  total gap penalty:%s linear penalty(gap-penalty=1):%s ",del,ins,delpr,inspr,(del + ins + delpr + inspr),(gaps * gap_penalty));
+# printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s affine:%s\n",len,length($10),nm,similarity,distance,$6,$13,affineP)
 
-printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s affine:%s\n",len,length($10),nm,similarity,distance,$6,$13,affineP)
+printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s\n",len,length($10),nm,similarity,distance,$6,$13)
+}
+else
+{
+printf("len:%s readlen:%s nm:- similarity:- distance:- cig:%s MD:Z:-\n",len,length($10),$6)
+}
 
 }
