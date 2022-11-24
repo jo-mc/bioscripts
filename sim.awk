@@ -1,7 +1,7 @@
 #!/bin/awk -f
 
 # generate similarity/distance scores for bam files (with MD tag)
-# Jukes-Cantor Distance   https://bip.weizmann.ac.il/education/materials/gcg/distances.html
+# Jukes-Cantor Distance
 # gap = 1 + 0.2*(gap-1)   ie gap of 1 = 1 gap of 2 = 1.2,  gap can be insert or delete.
 # similarity:  S = matches / (positions_scored + gaps * gap_penalty)
 
@@ -65,11 +65,11 @@ distance =  -0.75* log(1-(1-similarity)/0.75);
 # affineP = sprintf(" gaps (d/i): %s/%s affine penalties (d/i): %s/%s  total gap penalty:%s linear penalty(gap-penalty=1):%s ",del,ins,delpr,inspr,(del + ins + delpr + inspr),(gaps * gap_penalty));
 # printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s affine:%s\n",len,length($10),nm,similarity,distance,$6,$13,affineP)
 
-printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s\n",len,length($10),nm,similarity,distance,$6,$13)
+printf("len: %s readlen: %s nm:%s similarity:%s distance: %s cig:%s %s\n",len,length($10),nm,similarity,distance,$6,$13)
 }
 else
 {
-printf("len:%s readlen:%s nm:- similarity:- distance:- cig:%s MD:Z:-\n",len,length($10),$6)
+printf("len: %s readlen: %s nm:- similarity:- distance: - cig:%s MD:Z:-\n",len,length($10),$6)
 }
 
 }
