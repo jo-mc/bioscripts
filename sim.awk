@@ -46,13 +46,21 @@ for ( i=1; i<n; i++ ) {
 #print "_______________________"
 #print "s: " s "  h: " h " length $10 " length($10) " nm: " substr($12,6);
 
-len = length($10) - sC - hC;
+len = length($10) - sC;   # was also ' - hC '  bu hard clips are not in the bam!;
 nm = substr($12,6);
 matches = len - (nm - delC);
 gaps = delC + insC;
 gap_penalty = 1;
 #similarity = matches / (len + gaps * gap_penalty);
 similarity = matches / (len + del + ins + delpr + inspr);
+# test
+
+if ((1-(1-similarity)/0.75) > 1) {
+	if (ppp == 0) print $0 > "outsimawk.txt"
+	printf("similarity %s, matches %s, len %s, del %s, ins %s, depr %s, inspr, %s \n",similarity, matches, len, del, ins, depr, inspr) > "outsimawk.txt"
+	ppp = 1
+}
+
 distance =  -0.75* log(1-(1-similarity)/0.75);
 
 # printf("\nMcount: %s EQ count %s Xcount %s delCount %s insCount %s softCount %s hardCount %s \n ",m,eq,xx,del,ins,s,h);
@@ -65,11 +73,11 @@ distance =  -0.75* log(1-(1-similarity)/0.75);
 # affineP = sprintf(" gaps (d/i): %s/%s affine penalties (d/i): %s/%s  total gap penalty:%s linear penalty(gap-penalty=1):%s ",del,ins,delpr,inspr,(del + ins + delpr + inspr),(gaps * gap_penalty));
 # printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s affine:%s\n",len,length($10),nm,similarity,distance,$6,$13,affineP)
 
-printf("len: %s readlen: %s nm:%s similarity:%s distance: %s cig:%s %s\n",len,length($10),nm,similarity,distance,$6,$13)
+printf("len: %s readlen: %s nm:%s similarity: %s distance: %s cig:%s %s\n",len,length($10),nm,similarity,distance,$6,$14)
 }
 else
 {
-printf("len: %s readlen: %s nm:- similarity:- distance: - cig:%s MD:Z:-\n",len,length($10),$6)
+printf("len: %s readlen: %s nm:- similarity: - distance: - cig:%s MD:Z:-\n",len,length($10),$6)
 }
 
 }
