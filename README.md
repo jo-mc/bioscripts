@@ -311,7 +311,7 @@ Takes two fastq paired illumina files and interleaves reads. Does not check ID's
 ### sim.awk Similarity for aligned reads vs reference from BAM file
 ```
 Generate similarity/distance scores for bam files (with MD tag)
- computes Jukes-Cantor Distance  (using affine gap penalty)
+ computes Jukes-Cantor Distance  (using affine gap penalty)  https://bip.weizmann.ac.il/education/materials/gcg/distances.html
    gap = 1 + 0.2*(gap-1)   ie gap of 1 = 1 gap of 2 = 1.2,  gap can be insert or delete. (affine gradient = 0.2)
    similarity:  S = matches / (positions_scored + gaps * gap_penalty)
 
