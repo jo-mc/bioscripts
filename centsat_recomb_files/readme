@@ -1,1 +1,20 @@
 files to run centsat_recomb_files
+
+Files:
+
+
+# genome size data from here: 
+# https://www.ncbi.nlm.nih.gov/assembly/GCA_009914755.4#/st 
+chm13 <- read.csv('/home/a1779913/Documents/training/t2t/chm13_chr_size.tsv', sep = "\t", header = FALSE, comment.char = "#")
+
+# recombination data from Paper supplementary: 
+# https://www.sciencedirect.com/science/article/pii/S0002929722000659    Familial long-read sequencing increases yield of de novo mutations
+haplotype <- read_excel("/home/a1779913/Documents/training/t2t/1-s2.0-S0002929722000659-mmc2.xlsx")
+
+# chm13 centromere data from here: 
+# http://genome.ucsc.edu/cgi-bin/hgTables?hgsid=1512978831_3p2DNY0HOJHeRIw4C3RWn2m44yfe&clade=mammal&org=Human&db=hs1&hgta_group=map&hgta_track=hub_3671779_censat&hgta_table=0&hgta_regionType=genome&position=chr9%3A145%2C458%2C455-145%2C495%2C201&hgta_outputType=primaryTable&hgta_outFileName=
+centsat <- read.csv("/home/a1779913/Documents/training/t2t/chm13v2.0CenSat-NO_Y.csv", header = TRUE, comment.char = "#")
+
+# >>>>> GrcH38 centromere
+# data from:  http://genome.ucsc.edu/cgi-bin/hgTables?hgsid=1512978831_3p2DNY0HOJHeRIw4C3RWn2m44yfe&clade=mammal&org=Human&db=hg38&hgta_group=map&hgta_track=centromeres&hgta_table=0&hgta_regionType=genome&position=chr2%3A25%2C160%2C915-25%2C168%2C903&hgta_outputType=primaryTable&hgta_outFileName=
+centsat <- read.csv("/home/a1779913/Documents/training/t2t/grch38v2013CenSat_edit_noY.csv", header = TRUE, comment.char = "#")
