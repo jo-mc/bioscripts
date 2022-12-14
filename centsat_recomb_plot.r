@@ -1,13 +1,18 @@
-library(ggplot2)
-library(dplyr)
-library(readxl)
-
 # Recreate the plot from: Familial long-read sequencing increases yield of de novo mutations, Mar 2022.
 #                         https://doi.org/10.1016/j.ajhg.2022.02.014
 #
 # And add in plot of centromeres to see if recombination was detected in centromeric regions.
 # 
 # code could do with a bit of clean up, supporting files are in folder centsat_recomb_files
+
+#/ Copyright ©2022 J McConnell  . All rights reserved.
+#// Use of this source code is governed by a BSD-style
+#// license that can be found in the LICENSE.txt file.
+
+library(ggplot2)
+library(dplyr)
+library(readxl)
+
 
 # data from here: https://www.ncbi.nlm.nih.gov/assembly/GCA_009914755.4#/st 
 chm13 <- read.csv('/home/a1779913/Documents/training/t2t/chm13_chr_size.tsv', sep = "\t", header = FALSE, comment.char = "#")
