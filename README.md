@@ -350,3 +350,27 @@ SRR3189741.199779592 181 chr21 145  len:200 readlen:250 nm:- similarity:- distan
 Using data from a paper reconstruct plot.
 Shows various methods for data combining and merging and use of ggplot. (some code tidy up requried)
 Plot chromsome recombination and centromere, example using ggplot for a given data set
+
+Original figure:
+![parental recombination map](centsat_recomb_files/familiallongRead_recomb_fig6.png?raw=true "Title")
+(A) A genome-wide overview of detected meiotic recombination breakpoints for the proband. Inherited segments of maternal homologs (H1-light red, H2-dark red) appear on the left side of each chromosome while inherited segments of paternal homologs (H1-light blue, H2-dark blue) appear on the right side of each chromosome. Recombination breakpoints are visible as changes from H1 to H2 segments and vice versa. Detected DNMs that could have been assigned to a single parental homolog (n = 89) are shown as empty boxes over maternal (left) and paternal (right) homologs. This individual is a female, meaning that paternal chromosome X does not recombine (striped blue box).
+
+Recreated Figure with centromere from GRCh38 annotated:
+![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_grch38cent.png?raw=true "Title")
+
+Recreated Figure with centromere from chm13 annotated:
+![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_chm13cent.png?raw=true "Title")
+
+chm13 expands centromeric region to surrounding satellite repeats:
+Active αSat HOR (hor ... L)	
+Inactive αSat HOR (hor)	
+Divergent αSat HOR (dhor)	
+Monomeric αSat (mon)	
+Classical Human Satellite 1A (hsat1A)	
+Classical Human Satellite 1B (hsat1B)	
+Classical Human Satellite 2 (hsat2)	
+Classical Human Satellite 3 (hsat3)	
+Beta Satellite (bsat)	
+Gamma Satellite (gsat)	
+Other centromeric satellites (censat)
+Centromeric transition regions (ct)
