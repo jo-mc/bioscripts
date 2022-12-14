@@ -9,6 +9,8 @@ not quite oneliners but useful and reusable
 
 [similarity caclulation for alignment reads](#similarity_distance)
 
+[Plot chromsome recombination and centromere, example using ggplot for a given data set](#centsat_recomb_plot)
+
 ##
 ### extractfasta
 ```
@@ -342,3 +344,9 @@ UNMAPPED READ OUTPUT:
 SRR3189741.199779592 181 chr21 145  len:200 readlen:250 nm:- similarity:- distance:- cig:* MD:Z:-
 
 ```
+
+<a name="centsat_recomb_plot"></a>
+### PLotting in R with GGPLOT from a given data set. 
+Using data from a paper reconstruct plot.
+Shows various methods for data combining and merging and use of ggplot. (some code tidy up requried)
+Plot chromsome recombination and centromere, example using ggplot for a given data set
