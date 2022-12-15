@@ -350,6 +350,8 @@ SRR3189741.199779592 181 chr21 145  len:200 readlen:250 nm:- similarity:- distan
 Using data from a paper reconstruct plot.
 Shows various methods for data combining and merging and use of ggplot. (some code tidy up requried)
 Plots chromsome recombinations and centromere, using ggplot for the given data set. Building the data frame mfp was the bulk of the work.(centsat_recomb_plot.r)
+
+The major idea behind recreating this plot was the group by, and using chromosome, parent, haplotype.
 ``` r
 v <- append(append(1:22,"X"),"Y")
 atitle <- paste("chromosome, centromere -",centText,"- and recombination locations",sep="")
