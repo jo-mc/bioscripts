@@ -346,22 +346,37 @@ SRR3189741.199779592 181 chr21 145  len:200 readlen:250 nm:- similarity:- distan
 ```
 
 <a name="centsat_recomb_plot"></a>
-### PLotting in R with GGPLOT from a given data set. 
+### Plotting in R with GGPLOT from a given data set. 
 Using data from a paper reconstruct plot.
 Shows various methods for data combining and merging and use of ggplot. (some code tidy up requried)
-Plot chromsome recombination and centromere, example using ggplot for a given data set
+Plot chromsome recombination and centromere, example using ggplot for a given data set. Building the data frame mfp was the bulk of the work.
+``` r
+v <- append(append(1:22,"X"),"Y")
+atitle <- paste("chromosome, centromere -",centText,"- and recombination locations",sep="")
 
+ggplot(mfp, aes(x=xchm, y=aAll, group=r)) +
+  geom_line(aes(group = r, color=hap),size=2) +
+  scale_y_continuous(labels = scales::comma)  + 
+  scale_x_continuous(breaks = c(1:24),labels = v) +
+  labs(x = "Chromosome") + 
+  labs(y = "chromosome position")  +  # centered on centromere")
+  labs(title = atitle) + 
+  labs(caption = "ref: Familial long-read sequencing increases yield of de novo mutations") +
+  scale_colour_manual(values = c("mo.H1" = "sienna1", "mo.H2" = "violetred3", "fa.H1" = "skyblue1", "fa.H2" = "royalblue4", "cent" = "green4"))
+
+```
 Original figure:
 ![parental recombination map](centsat_recomb_files/familiallongRead_recomb_fig6.png?raw=true "Title")
 (A) A genome-wide overview of detected meiotic recombination breakpoints for the proband. Inherited segments of maternal homologs (H1-light red, H2-dark red) appear on the left side of each chromosome while inherited segments of paternal homologs (H1-light blue, H2-dark blue) appear on the right side of each chromosome. Recombination breakpoints are visible as changes from H1 to H2 segments and vice versa. Detected DNMs that could have been assigned to a single parental homolog (n = 89) are shown as empty boxes over maternal (left) and paternal (right) homologs. This individual is a female, meaning that paternal chromosome X does not recombine (striped blue box).
 
 Recreated Figure with centromere from GRCh38 annotated:
-![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_grch38cent.png?raw=true "Title")
+![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_grch38cent.png)
 
 Recreated Figure with centromere from chm13 annotated:
-![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_chm13cent.png?raw=true "Title")
+![parental recombination map with grch38 centromeres](centsat_recomb_files/recomb_chm13cent.png)
 
-chm13 expands centromeric region to surrounding satellite repeats:
+chm13 expands centromeric region to surrounding satellite repeats: 
+``` ruby
 Active αSat HOR (hor ... L)	
 Inactive αSat HOR (hor)	
 Divergent αSat HOR (dhor)	
@@ -374,3 +389,4 @@ Beta Satellite (bsat)
 Gamma Satellite (gsat)	
 Other centromeric satellites (censat)
 Centromeric transition regions (ct)
+```
