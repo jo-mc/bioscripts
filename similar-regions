@@ -1,0 +1,8 @@
+PLaceholder for finding simialer regions in the genome via multi mapped reads:
+
+samtools view -f 0 chr6.bam | awk '{ print $1 }' | sort | uniq -c > mapqZero_sort_uniqID.txt
+less -S mapqZero_sort_uniqID.txt
+
+chr6.bam was pulled out of whole gneome alignment, most 0 map q reads only occur once.
+
+??
