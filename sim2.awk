@@ -86,7 +86,7 @@ if (similarity > 0.25) {
 # printf("len:%s readlen:%s nm:%s similarity:%s distance:%s cig:%s %s affine:%s\n",alignLength,length($10),nm,similarity,distance,$6,$13,affineP)
 
 # printf("len: %s readlen: %s nm: %s similarity: %s distance: %s AS: %s \n",alignLength,length($10),nm,similarity,distance,AS)
-printf("%s %s %s %s %s %s\n",alignLength,length($10),nm,similarity,distance,AS)
+printf("%s %s %s %s %s %s\n",alignLength,length($10),mismatch,similarity,distance,AS)
 }
 else
 {
