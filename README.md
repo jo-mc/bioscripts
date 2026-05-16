@@ -11,6 +11,7 @@ not quite oneliners but useful and reusable
 
 [Plot chromsome recombination and centromere, example using ggplot for a given data set](#centsat_recomb_plot)
 
+[find exec bash -c example to searcg bams for cigar (ie knonw star aligner non canonic intron regions)](#findExecIntron)
 ##
 ### extractfasta
 ```
@@ -391,4 +392,128 @@ Beta Satellite (bsat)
 Gamma Satellite (gsat)	
 Other centromeric satellites (censat)
 Centromeric transition regions (ct)
+```
+
+<a name="findExecIntron"></a>
+## find exec bash -c example to search bams for cigar
+# Mine:
+``` ruby
+find . -iname "*b37.bam" -exec  bash -c ' count=$(samtools view "$1" | grep "9174N" | wc -l ); [ "$count" -ne 0 ] && printf  "%s\t%s\n" "$1" "$count";' _ {} \; | less
+```
+# Claude review:
+
+# Improvements for BAM CIGAR String Search
+
+## Original Command
+```bash
+find . -iname "*hg38.bam" -exec  bash -c ' count=$(samtools view "$1" | grep "9174N" | wc -l ); [ "$count" -ne 0 ] && printf  "%s\t%s\n" "$1" "$count";' _ {} \; | less
+```
+
+## Basic Improvements
+
+### Version 1: Use awk instead of grep | wc -l
+```bash
+find . -iname "*hg38.bam" -exec bash -c '
+    count=$(samtools view "$1" | awk "/9174N/ {count++} END {print count+0}")
+    [ "$count" -ne 0 ] && printf "%s\t%s\n" "$1" "$count"
+' _ {} \; | less
+```
+
+**Key improvements:**
+1. **Avoid `grep | wc -l`** - Use `awk` to count in one pass (faster, fewer processes)
+2. **Add `+0` in awk** - Ensures output is `0` instead of empty string when no matches
+
+---
+
+## Better - More Robust Version
+
+### Version 2: Process multiple files per bash invocation
+```bash
+find . -iname "*hg38.bam" -exec bash -c '
+    for bam; do
+        count=$(samtools view "$bam" | awk "/9174N/ {count++} END {print count+0}")
+        [ "$count" -ne 0 ] && printf "%s\t%s\n" "$bam" "$count"
+    done
+' bash {} + | less
+```
+
+**Improvement:**
+- Uses `{} +` instead of `{} \;` to process multiple files per bash invocation (much faster)
+
+---
+
+## Most Efficient Version
+
+### Version 3: Simplified with grep -c
+```bash
+find . -iname "*hg38.bam" -exec bash -c '
+    for bam; do
+        count=$(samtools view "$bam" | grep -c "9174N")
+        [ "$count" -ne 0 ] && printf "%s\t%s\n" "$bam" "$count"
+    done
+' bash {} + | tee results.txt | less
+```
+
+**Improvements:**
+- Use `grep -c` instead of `grep | wc -l` (simpler)
+- Add `tee results.txt` to save output while viewing
+- Quote all variable expansions (done correctly!)
+
+---
+
+## Parallel Processing Version
+
+### Version 4: For large files or many samples
+```bash
+# Process files in parallel
+find . -iname "*hg38.bam" -print0 | \
+parallel -0 -j 4 'count=$(samtools view {} | grep -c "9174N"); [ "$count" -ne 0 ] && printf "%s\t%s\n" {} "$count"' | \
+less
+```
+
+**When to use:**
+- You have many BAM files
+- Files are large and processing is slow
+- You have multiple CPU cores available
+
+**Note:** Adjust `-j 4` to match your available cores
+
+---
+
+## Additional Optimization Tips
+
+### If you know the genomic region:
+```bash
+# Add region filtering to samtools
+samtools view "$bam" chr1:1000-2000 | grep -c "9174N"
+```
+
+### For indexed BAM files with specific chromosomes:
+```bash
+# Only search specific chromosome
+samtools view "$bam" chr1 | grep -c "9174N"
+```
+
+---
+
+## Summary of Best Practices Applied
+
+✅ **Quote all variable expansions** (`"$bam"` not `$bam`)  
+✅ **Use `{} +` instead of `{} \;`** for better performance  
+✅ **Avoid unnecessary pipes** (`grep -c` vs `grep | wc -l`)  
+✅ **Save results while viewing** (use `tee`)  
+✅ **Consider parallel processing** for large datasets  
+✅ **Use samtools region filtering** when applicable  
+
+---
+
+## Performance Comparison
+
+| Method | Speed | Complexity |
+|--------|-------|------------|
+| Original (`grep \| wc -l` with `{} \;`) | Slowest | Simple |
+| Version 2 (awk with `{} +`) | Fast | Simple |
+| Version 3 (`grep -c` with `{} +`) | Fast | Simplest |
+| Version 4 (parallel) | Fastest | Moderate |
+
 ```
