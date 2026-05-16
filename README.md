@@ -400,7 +400,7 @@ Centromeric transition regions (ct)
 ``` ruby
 find . -iname "*b37.bam" -exec  bash -c ' count=$(samtools view "$1" | grep "9174N" | wc -l ); [ "$count" -ne 0 ] && printf  "%s\t%s\n" "$1" "$count";' _ {} \; | less
 ```
-# Claude review:
+# Claude review: (untested!)
 
 # Improvements for BAM CIGAR String Search
 
@@ -425,9 +425,9 @@ find . -iname "*hg38.bam" -exec bash -c '
 
 ---
 
-## Better - More Robust Version
+### Better - More Robust Version
 
-### Version 2: Process multiple files per bash invocation
+#### Version 2: Process multiple files per bash invocation
 ```bash
 find . -iname "*hg38.bam" -exec bash -c '
     for bam; do
@@ -442,9 +442,9 @@ find . -iname "*hg38.bam" -exec bash -c '
 
 ---
 
-## Most Efficient Version
+#### Most Efficient Version
 
-### Version 3: Simplified with grep -c
+#### Version 3: Simplified with grep -c
 ```bash
 find . -iname "*hg38.bam" -exec bash -c '
     for bam; do
@@ -461,9 +461,9 @@ find . -iname "*hg38.bam" -exec bash -c '
 
 ---
 
-## Parallel Processing Version
+### Parallel Processing Version
 
-### Version 4: For large files or many samples
+#### Version 4: For large files or many samples
 ```bash
 # Process files in parallel
 find . -iname "*hg38.bam" -print0 | \
@@ -480,15 +480,15 @@ less
 
 ---
 
-## Additional Optimization Tips
+### Additional Optimization Tips
 
-### If you know the genomic region:
+#### If you know the genomic region:
 ```bash
 # Add region filtering to samtools
 samtools view "$bam" chr1:1000-2000 | grep -c "9174N"
 ```
 
-### For indexed BAM files with specific chromosomes:
+#### For indexed BAM files with specific chromosomes:
 ```bash
 # Only search specific chromosome
 samtools view "$bam" chr1 | grep -c "9174N"
@@ -496,7 +496,7 @@ samtools view "$bam" chr1 | grep -c "9174N"
 
 ---
 
-## Summary of Best Practices Applied
+### Summary of Best Practices Applied
 
 ✅ **Quote all variable expansions** (`"$bam"` not `$bam`)  
 ✅ **Use `{} +` instead of `{} \;`** for better performance  
