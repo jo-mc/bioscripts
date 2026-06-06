@@ -13,6 +13,7 @@ not quite oneliners but useful and reusable
 
 [find exec bash -c example to searcg bams for cigar (ie knonw star aligner non canonic intron regions)](#findExecIntron)
 ##
+>>>> get a *top snapshot* from ssh into hpc node: ```bash top -b -n 1 -c > top_snapshot.txt  ```
 ### extractfasta
 ```
 usage:
