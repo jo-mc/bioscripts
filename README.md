@@ -540,4 +540,5 @@ Key Flags Explained
 
 ### Useful Variations
 Sort numerically: Use the -n flag if your lines begin with numbers and you want them ordered by mathematical value rather than alphabetically.\
-Remove duplicates: Add the -u (unique) flag to drop identical duplicate lines during the initial chunking phase, saving a massive amount of disk and processing overhead.
+Remove duplicates: Add the -u (unique) flag to drop identical duplicate lines during the initial chunking phase, saving a massive amount of disk and processing overhead.\
+(https://unix.stackexchange.com/questions/120096/how-to-sort-big-files)
