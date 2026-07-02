@@ -16,6 +16,8 @@ not quite oneliners but useful and reusable
 [sort big files](#sortbig)
 ##
 >>>> get a *top snapshot* from ssh into hpc node: ```bash top -b -n 1 -c > top_snapshot.txt  ```
+>>>>
+>>>> *pigz for fastq gen:*  samtools sort -n --threads 16  -l 0 $file --reference $ref.fa | samtools fastq - -1 >(pigz -p 12 > $file_1.fastq.gz) -2 >(pigz -p 12 > $file_2.fastq.gz)   [https://stackoverflow.com/questions/38133826/how-to-pipe-two-output-files-to-bgzip-them]
 ### extractfasta
 ```
 usage:
