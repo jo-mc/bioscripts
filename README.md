@@ -12,6 +12,8 @@ not quite oneliners but useful and reusable
 [Plot chromsome recombination and centromere, example using ggplot for a given data set](#centsat_recomb_plot)
 
 [find exec bash -c example to searcg bams for cigar (ie knonw star aligner non canonic intron regions)](#findExecIntron)
+
+[sort big files](#sortbig)
 ##
 >>>> get a *top snapshot* from ssh into hpc node: ```bash top -b -n 1 -c > top_snapshot.txt  ```
 ### extractfasta
@@ -517,4 +519,25 @@ samtools view "$bam" chr1 | grep -c "9174N"
 | Version 3 (`grep -c` with `{} +`) | Fast | Simplest |
 | Version 4 (parallel) | Fastest | Moderate |
 
+---
+<a name="sortbig"></a>
+## Sort big files:
+
+The standard GNU sort command on Linux is already highly optimized to handle huge text files that exceed your system RAM. It achieves this by using an external merge sort algorithm, which automatically splits the file into manageable chunks, sorts them in your memory, saves temporary files to disk, and merges them back together. While a simple sort huge_file.txt > sorted_file.txt will work out of the box, you can drastically speed up the process and avoid system crashes by utilizing specific optimization flags.
+
+The Optimized CommandTo sort a massive file with maximum speed and safety, run a command structured like this:\
+bash
 ```
+LC_ALL=C sort --parallel=4 -S 50% -T /path/to/fast/disk huge_file.txt -o sorted_file.txt
+```
+Key Flags Explained
+
++ LC_ALL=C: Forces the system to use traditional byte-wise sorting rather than complex human language rules (like UTF-8). This alone can make the process up to 100x faster.
++ --parallel=N: Forces the command to split the workload across N CPU cores to utilize multi-threading.
++ -S (or --buffer-size): Explicitly sets how much memory sort can safely consume. You can specify a percentage (e.g., -S 50%) or a direct size (e.g., -S 16G). This keeps the system from swapping or triggering the Out-Of-Memory (OOM) killer.
++ -T (or --temporary-directory): Redirects temporary cache chunks to a specific directory. By default, sort dumps temp files into /tmp, which is often small or mounted in RAM (tmpfs). Point this to a spacious, fast Solid State Drive (SSD) with plenty of continuous storage space.
++ -o: Specifies the output file directly instead of using bash redirection (>). It is safer and slightly more performant.
+
+### Useful Variations
+Sort numerically: Use the -n flag if your lines begin with numbers and you want them ordered by mathematical value rather than alphabetically.\
+Remove duplicates: Add the -u (unique) flag to drop identical duplicate lines during the initial chunking phase, saving a massive amount of disk and processing overhead.
